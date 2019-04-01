@@ -1,5 +1,11 @@
 ---
 groups:
+  - name: all
+    jobs:
+      - get-all-public-frontend-git-repos
+      - get-all-api-applications-git-repos
+      - get-all-access-restricted-external-git-repos
+
   - name: public-frontends
     jobs:
       - get-all-public-frontend-git-repos
