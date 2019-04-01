@@ -4,6 +4,10 @@ groups:
     jobs:
       - get-all-public-frontend-git-repos
 
+  - name: api-applications
+    jobs:
+      - get-all-api-applications-git-repos
+
 resources:
   - name: router-git
     type: git
@@ -101,6 +105,78 @@ resources:
       uri: https://github.com/alphagov/collections.git
       branch: master
 
+  - name: support-api-git
+    type: git
+    source:
+      uri: https://github.com/alphagov/support-api.git
+      branch: master
+
+  - name: router-api-git
+    type: git
+    source:
+      uri: https://github.com/alphagov/router-api.git
+      branch: master
+
+  - name: content-store-git
+    type: git
+    source:
+      uri: https://github.com/alphagov/content-store.git
+      branch: master
+
+  - name: rummager-git
+    type: git
+    source:
+      uri: https://github.com/alphagov/rummager.git
+      branch: master
+
+  - name: email-alert-service-git
+    type: git
+    source:
+      uri: https://github.com/alphagov/email-alert-service.git
+      branch: master
+
+  - name: email-alert-api-git
+    type: git
+    source:
+      uri: https://github.com/alphagov/email-alert-api.git
+      branch: master
+
+  - name: cache-clearing-service-git
+    type: git
+    source:
+      uri: https://github.com/alphagov/cache-clearing-service.git
+      branch: master
+
+  - name: content-performance-manager-git
+    type: git
+    source:
+      uri: https://github.com/alphagov/content-performance-manager.git
+      branch: master
+
+  - name: mapit-git
+    type: git
+    source:
+      uri: https://github.com/alphagov/mapit.git
+      branch: master
+
+  - name: publishing-api-git
+    type: git
+    source:
+      uri: https://github.com/alphagov/publishing-api.git
+      branch: master
+
+  - name: asset-manager-git
+    type: git
+    source:
+      uri: https://github.com/alphagov/asset-manager.git
+      branch: master
+
+  - name: link-checker-git
+    type: git
+    source:
+      uri: https://github.com/alphagov/link-checker.git
+      branch: master
+
 jobs:
   - name: get-all-public-frontend-git-repos
     serial: true
@@ -121,3 +197,20 @@ jobs:
       - get: smart-answers-git
       - get: finder-frontend-git
       - get: collections-git
+
+  - name: get-all-api-applications-git-repos
+    serial: true
+    plan:
+      - get: whitehall-git
+      - get: support-api-git
+      - get: router-api-git
+      - get: content-store-git
+      - get: rummager-git
+      - get: email-alert-service-git
+      - get: email-alert-api-git
+      - get: cache-clearing-service-git
+      - get: content-performance-manager-git
+      - get: mapit-git
+      - get: publishing-api-git
+      - get: asset-manager-git
+      - get: link-checker-git
