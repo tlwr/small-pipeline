@@ -1,4 +1,19 @@
 ---
+unimplemented-task: &unimplemented-task-config
+  config:
+    platform: linux
+    image_resource:
+      type: docker-image
+      source:
+        repository: gdsre/aws-ruby
+        tag: 2.6.1-3.0.1
+    run:
+      path: ruby
+      args:
+      - -e
+      - |
+        raise 'Unimplemented'
+
 groups:
   - name: public-frontends
     jobs:
@@ -347,236 +362,377 @@ jobs:
     serial: true
     plan:
       - get: whitehall-git
+        trigger: true
+      - task: run-tests
+        <<: *unimplemented-task-config
 
   # PUBLIC FRONTENDS
   - name: build-router
     serial: true
     plan:
       - get: router-git
+        trigger: true
+      - task: tests
+        <<: *unimplemented-task-config
 
   - name: build-static
     serial: true
     plan:
       - get: static-git
+        trigger: true
+      - task: tests
+        <<: *unimplemented-task-config
 
   - name: build-feedback
     serial: true
     plan:
       - get: feedback-git
+        trigger: true
+      - task: tests
+        <<: *unimplemented-task-config
 
   - name: build-email-alert-frontend
     serial: true
     plan:
       - get: email-alert-frontend-git
+        trigger: true
+      - task: tests
+        <<: *unimplemented-task-config
 
   - name: build-info-frontend
     serial: true
     plan:
       - get: info-frontend-git
+        trigger: true
+      - task: tests
+        <<: *unimplemented-task-config
 
   - name: build-government-frontend
     serial: true
     plan:
       - get: government-frontend-git
+        trigger: true
+      - task: tests
+        <<: *unimplemented-task-config
 
   - name: build-service-manual-frontend
     serial: true
     plan:
       - get: service-manual-frontend-git
+        trigger: true
+      - task: tests
+        <<: *unimplemented-task-config
 
   - name: build-licence-finder
     serial: true
     plan:
       - get: licence-finder-git
+        trigger: true
+      - task: tests
+        <<: *unimplemented-task-config
 
   - name: build-calendars
     serial: true
     plan:
       - get: calendars-git
+        trigger: true
+      - task: tests
+        <<: *unimplemented-task-config
 
   - name: build-calculators
     serial: true
     plan:
       - get: calculators-git
+        trigger: true
+      - task: tests
+        <<: *unimplemented-task-config
 
   - name: build-manuals-frontend
     serial: true
     plan:
       - get: manuals-frontend-git
+        trigger: true
+      - task: tests
+        <<: *unimplemented-task-config
 
   - name: build-frontend
     serial: true
     plan:
       - get: frontend-git
+        trigger: true
+      - task: tests
+        <<: *unimplemented-task-config
 
   - name: build-smart-answers
     serial: true
     plan:
       - get: smart-answers-git
+        trigger: true
+      - task: tests
+        <<: *unimplemented-task-config
 
   - name: build-finder-frontend
     serial: true
     plan:
       - get: finder-frontend-git
+        trigger: true
+      - task: tests
+        <<: *unimplemented-task-config
 
   - name: build-collections
     serial: true
     plan:
       - get: collections-git
+        trigger: true
+      - task: tests
+        <<: *unimplemented-task-config
 
   # API APPLICATIONS
   - name: build-support-api
     serial: true
     plan:
       - get: support-api-git
+        trigger: true
+      - task: tests
+        <<: *unimplemented-task-config
 
   - name: build-router-api
     serial: true
     plan:
       - get: router-api-git
+        trigger: true
+      - task: tests
+        <<: *unimplemented-task-config
 
   - name: build-content-store
     serial: true
     plan:
       - get: content-store-git
+        trigger: true
+      - task: tests
+        <<: *unimplemented-task-config
 
   - name: build-rummager
     serial: true
     plan:
       - get: rummager-git
+        trigger: true
+      - task: tests
+        <<: *unimplemented-task-config
 
   - name: build-email-alert-service
     serial: true
     plan:
       - get: email-alert-service-git
+        trigger: true
+      - task: tests
+        <<: *unimplemented-task-config
 
   - name: build-email-alert-api
     serial: true
     plan:
       - get: email-alert-api-git
+        trigger: true
+      - task: tests
+        <<: *unimplemented-task-config
 
   - name: build-cache-clearing-service
     serial: true
     plan:
       - get: cache-clearing-service-git
+        trigger: true
+      - task: tests
+        <<: *unimplemented-task-config
 
   - name: build-content-performance-manager
     serial: true
     plan:
       - get: content-performance-manager-git
+        trigger: true
+      - task: tests
+        <<: *unimplemented-task-config
 
   - name: build-mapit
     serial: true
     plan:
       - get: mapit-git
+        trigger: true
+      - task: tests
+        <<: *unimplemented-task-config
 
   - name: build-publishing-api
     serial: true
     plan:
       - get: publishing-api-git
+        trigger: true
+      - task: tests
+        <<: *unimplemented-task-config
 
   - name: build-asset-manager
     serial: true
     plan:
       - get: asset-manager-git
+        trigger: true
+      - task: tests
+        <<: *unimplemented-task-config
 
   - name: build-link-checker
     serial: true
     plan:
       - get: link-checker-git
+        trigger: true
+      - task: tests
+        <<: *unimplemented-task-config
 
   # ACCESS RESTRICTED EXTERNAL
   - name: build-signon
     serial: true
     plan:
       - get: signon-git
+        trigger: true
+      - task: tests
+        <<: *unimplemented-task-config
 
   - name: build-support
     serial: true
     plan:
       - get: support-git
+        trigger: true
+      - task: tests
+        <<: *unimplemented-task-config
 
   - name: build-contacts-admin
     serial: true
     plan:
       - get: contacts-admin-git
+        trigger: true
+      - task: tests
+        <<: *unimplemented-task-config
 
   - name: build-imminence
     serial: true
     plan:
       - get: imminence-git
+        trigger: true
+      - task: tests
+        <<: *unimplemented-task-config
 
   - name: build-local-links-manager
     serial: true
     plan:
       - get: local-links-manager-git
+        trigger: true
+      - task: tests
+        <<: *unimplemented-task-config
 
   - name: build-content-data-admin
     serial: true
     plan:
       - get: content-data-admin-git
+        trigger: true
+      - task: tests
+        <<: *unimplemented-task-config
 
   - name: build-search-admin
     serial: true
     plan:
       - get: search-admin-git
+        trigger: true
+      - task: tests
+        <<: *unimplemented-task-config
 
   - name: build-maslow
     serial: true
     plan:
       - get: maslow-git
+        trigger: true
+      - task: tests
+        <<: *unimplemented-task-config
 
   - name: build-collections-publisher
     serial: true
     plan:
       - get: collections-publisher-git
+        trigger: true
+      - task: tests
+        <<: *unimplemented-task-config
 
   - name: build-policy-publisher
     serial: true
     plan:
       - get: policy-publisher-git
+        trigger: true
+      - task: tests
+        <<: *unimplemented-task-config
 
   - name: build-content-tagger
     serial: true
     plan:
       - get: content-tagger-git
+        trigger: true
+      - task: tests
+        <<: *unimplemented-task-config
 
   - name: build-organisations-publisher
     serial: true
     plan:
       - get: organisations-publisher-git
+        trigger: true
+      - task: tests
+        <<: *unimplemented-task-config
 
   - name: build-hmrc-manuals-api
     serial: true
     plan:
       - get: hmrc-manuals-api-git
+        trigger: true
+      - task: tests
+        <<: *unimplemented-task-config
 
   - name: build-publisher
     serial: true
     plan:
       - get: publisher-git
+        trigger: true
+      - task: tests
+        <<: *unimplemented-task-config
 
   - name: build-travel-advice-publisher
     serial: true
     plan:
       - get: travel-advice-publisher-git
+        trigger: true
+      - task: tests
+        <<: *unimplemented-task-config
 
   - name: build-manuals-publisher
     serial: true
     plan:
       - get: manuals-publisher-git
+        trigger: true
+      - task: tests
+        <<: *unimplemented-task-config
 
   - name: build-service-manual-publisher
     serial: true
     plan:
       - get: service-manual-publisher-git
+        trigger: true
+      - task: tests
+        <<: *unimplemented-task-config
 
   - name: build-specialist-publisher
     serial: true
     plan:
       - get: specialist-publisher-git
+        trigger: true
+      - task: tests
+        <<: *unimplemented-task-config
 
   - name: build-content-publisher
     serial: true
     plan:
       - get: content-publisher-git
+        trigger: true
+      - task: tests
+        <<: *unimplemented-task-config
