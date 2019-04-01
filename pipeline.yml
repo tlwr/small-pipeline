@@ -85,7 +85,8 @@ resources:
     source:
       uri: https://github.com/tlwr/small-pipeline.git
       branch: master
-      paths: test-harness
+      paths:
+        - test-harness
 
   - name: router-git
     type: git
