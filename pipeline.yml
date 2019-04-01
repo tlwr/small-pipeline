@@ -73,7 +73,18 @@ groups:
       - build-specialist-publisher
       - build-content-publisher
 
+  - name: pipeline-tools
+    jobs:
+      - build-test-harness-image
+
 resources:
+  - name: test-harness-git
+    type: git
+    source:
+      uri: https://github.com/tlwr/small-pipeline.git
+      branch: master
+      paths: test-harness
+
   - name: router-git
     type: git
     source:
@@ -736,3 +747,9 @@ jobs:
         trigger: true
       - task: tests
         <<: *unimplemented-task-config
+
+  - name: build-test-harness-image
+    serial: true
+    plan:
+      - get: test-harness-git
+        trigger: true
