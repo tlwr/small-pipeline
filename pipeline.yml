@@ -3,14 +3,66 @@ groups:
   - name: public-frontends
     jobs:
       - get-all-public-frontend-git-repos
+    resources:
+      - router-git
+      - static-git
+      - whitehall-git
+      - feedback-git
+      - email-alert-frontend-git
+      - info-frontend-git
+      - government-frontend-git
+      - service-manual-frontend-git
+      - licence-finder-git
+      - calendars-git
+      - calculators-git
+      - manuals-frontend-git
+      - frontend-git
+      - smart-answers-git
+      - finder-frontend-git
+      - collections-git
 
   - name: api-applications
     jobs:
       - get-all-api-applications-git-repos
+    resources:
+      - whitehall-git
+      - support-api-git
+      - router-api-git
+      - content-store-git
+      - rummager-git
+      - email-alert-service-git
+      - email-alert-api-git
+      - cache-clearing-service-git
+      - content-performance-manager-git
+      - mapit-git
+      - publishing-api-git
+      - asset-manager-git
+      - link-checker-git
 
   - name: access-restricted-external
     jobs:
       - get-all-access-restricted-external-git-repos
+    resources:
+      - signon-git
+      - whitehall-git
+      - support-git
+      - contacts-admin-git
+      - imminence-git
+      - local-links-manager-git
+      - content-data-admin-git
+      - search-admin-git
+      - maslow-git
+      - collections-publisher-git
+      - policy-publisher-git
+      - content-tagger-git
+      - organisations-publisher-git
+      - hmrc-manuals-api-git
+      - publisher-git
+      - travel-advice-publisher-git
+      - manuals-publisher-git
+      - service-manual-publisher-git
+      - specialist-publisher-git
+      - content-publisher-git
 
 resources:
   - name: router-git
