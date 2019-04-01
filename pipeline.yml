@@ -1,74 +1,62 @@
 ---
 groups:
-  - name: all
-    jobs:
-      - get-all-public-frontend-git-repos
-      - get-all-api-applications-git-repos
-      - get-all-access-restricted-external-git-repos
-
   - name: public-frontends
     jobs:
-      - get-all-public-frontend-git-repos
-    resources:
-      - router-git
-      - static-git
-      - whitehall-git
-      - feedback-git
-      - email-alert-frontend-git
-      - info-frontend-git
-      - government-frontend-git
-      - service-manual-frontend-git
-      - licence-finder-git
-      - calendars-git
-      - calculators-git
-      - manuals-frontend-git
-      - frontend-git
-      - smart-answers-git
-      - finder-frontend-git
-      - collections-git
+      - build-router
+      - build-static
+      - build-whitehall
+      - build-feedback
+      - build-email-alert-frontend
+      - build-info-frontend
+      - build-government-frontend
+      - build-service-manual-frontend
+      - build-licence-finder
+      - build-calendars
+      - build-calculators
+      - build-manuals-frontend
+      - build-frontend
+      - build-smart-answers
+      - build-finder-frontend
+      - build-collections
 
   - name: api-applications
     jobs:
-      - get-all-api-applications-git-repos
-    resources:
-      - whitehall-git
-      - support-api-git
-      - router-api-git
-      - content-store-git
-      - rummager-git
-      - email-alert-service-git
-      - email-alert-api-git
-      - cache-clearing-service-git
-      - content-performance-manager-git
-      - mapit-git
-      - publishing-api-git
-      - asset-manager-git
-      - link-checker-git
+      - build-whitehall
+      - build-support-api
+      - build-router-api
+      - build-content-store
+      - build-rummager
+      - build-email-alert-service
+      - build-email-alert-api
+      - build-cache-clearing-service
+      - build-content-performance-manager
+      - build-mapit
+      - build-publishing-api
+      - build-asset-manager
+      - build-link-checker
 
   - name: access-restricted-external
     jobs:
-      - get-all-access-restricted-external-git-repos
-    resources:
-      - signon-git
-      - whitehall-git
-      - support-git
-      - contacts-admin-git
-      - imminence-git
-      - local-links-manager-git
-      - content-data-admin-git
-      - search-admin-git
-      - maslow-git
-      - collections-publisher-git
-      - policy-publisher-git
-      - content-tagger-git
-      - organisations-publisher-git
-      - hmrc-manuals-api-git
-      - publisher-git
-      - travel-advice-publisher-git
-      - manuals-publisher-git
-      - service-manual-publisher-git
-      - specialist-publisher-git
-      - content-publisher-git
+      - build-signon
+      - build-whitehall
+      - build-support
+      - build-contacts-admin
+      - build-imminence
+      - build-local-links-manager
+      - build-content-data-admin
+      - build-search-admin
+      - build-maslow
+      - build-collections-publisher
+      - build-policy-publisher
+      - build-content-tagger
+      - build-organisations-publisher
+      - build-hmrc-manuals-api
+      - build-publisher
+      - build-travel-advice-publisher
+      - build-manuals-publisher
+      - build-service-manual-publisher
+      - build-specialist-publisher
+      - build-content-publisher
 
 resources:
   - name: router-git
@@ -354,63 +342,241 @@ resources:
       branch: master
 
 jobs:
-  - name: get-all-public-frontend-git-repos
+  # SHARED
+  - name: build-whitehall
+    serial: true
+    plan:
+      - get: whitehall-git
+
+  # PUBLIC FRONTENDS
+  - name: build-router
     serial: true
     plan:
       - get: router-git
-      - get: static-git
-      - get: whitehall-git
-      - get: feedback-git
-      - get: email-alert-frontend-git
-      - get: info-frontend-git
-      - get: government-frontend-git
-      - get: service-manual-frontend-git
-      - get: licence-finder-git
-      - get: calendars-git
-      - get: calculators-git
-      - get: manuals-frontend-git
-      - get: frontend-git
-      - get: smart-answers-git
-      - get: finder-frontend-git
-      - get: collections-git
 
-  - name: get-all-api-applications-git-repos
+  - name: build-static
     serial: true
     plan:
-      - get: whitehall-git
+      - get: static-git
+
+  - name: build-feedback
+    serial: true
+    plan:
+      - get: feedback-git
+
+  - name: build-email-alert-frontend
+    serial: true
+    plan:
+      - get: email-alert-frontend-git
+
+  - name: build-info-frontend
+    serial: true
+    plan:
+      - get: info-frontend-git
+
+  - name: build-government-frontend
+    serial: true
+    plan:
+      - get: government-frontend-git
+
+  - name: build-service-manual-frontend
+    serial: true
+    plan:
+      - get: service-manual-frontend-git
+
+  - name: build-licence-finder
+    serial: true
+    plan:
+      - get: licence-finder-git
+
+  - name: build-calendars
+    serial: true
+    plan:
+      - get: calendars-git
+
+  - name: build-calculators
+    serial: true
+    plan:
+      - get: calculators-git
+
+  - name: build-manuals-frontend
+    serial: true
+    plan:
+      - get: manuals-frontend-git
+
+  - name: build-frontend
+    serial: true
+    plan:
+      - get: frontend-git
+
+  - name: build-smart-answers
+    serial: true
+    plan:
+      - get: smart-answers-git
+
+  - name: build-finder-frontend
+    serial: true
+    plan:
+      - get: finder-frontend-git
+
+  - name: build-collections
+    serial: true
+    plan:
+      - get: collections-git
+
+  # API APPLICATIONS
+  - name: build-support-api
+    serial: true
+    plan:
       - get: support-api-git
+
+  - name: build-router-api
+    serial: true
+    plan:
       - get: router-api-git
+
+  - name: build-content-store
+    serial: true
+    plan:
       - get: content-store-git
+
+  - name: build-rummager
+    serial: true
+    plan:
       - get: rummager-git
+
+  - name: build-email-alert-service
+    serial: true
+    plan:
       - get: email-alert-service-git
+
+  - name: build-email-alert-api
+    serial: true
+    plan:
       - get: email-alert-api-git
+
+  - name: build-cache-clearing-service
+    serial: true
+    plan:
       - get: cache-clearing-service-git
+
+  - name: build-content-performance-manager
+    serial: true
+    plan:
       - get: content-performance-manager-git
+
+  - name: build-mapit
+    serial: true
+    plan:
       - get: mapit-git
+
+  - name: build-publishing-api
+    serial: true
+    plan:
       - get: publishing-api-git
+
+  - name: build-asset-manager
+    serial: true
+    plan:
       - get: asset-manager-git
+
+  - name: build-link-checker
+    serial: true
+    plan:
       - get: link-checker-git
 
-  - name: get-all-access-restricted-external-git-repos
+  # ACCESS RESTRICTED EXTERNAL
+  - name: build-signon
     serial: true
     plan:
       - get: signon-git
-      - get: whitehall-git
+
+  - name: build-support
+    serial: true
+    plan:
       - get: support-git
+
+  - name: build-contacts-admin
+    serial: true
+    plan:
       - get: contacts-admin-git
+
+  - name: build-imminence
+    serial: true
+    plan:
       - get: imminence-git
+
+  - name: build-local-links-manager
+    serial: true
+    plan:
       - get: local-links-manager-git
+
+  - name: build-content-data-admin
+    serial: true
+    plan:
       - get: content-data-admin-git
+
+  - name: build-search-admin
+    serial: true
+    plan:
       - get: search-admin-git
+
+  - name: build-maslow
+    serial: true
+    plan:
       - get: maslow-git
+
+  - name: build-collections-publisher
+    serial: true
+    plan:
       - get: collections-publisher-git
+
+  - name: build-policy-publisher
+    serial: true
+    plan:
       - get: policy-publisher-git
+
+  - name: build-content-tagger
+    serial: true
+    plan:
       - get: content-tagger-git
+
+  - name: build-organisations-publisher
+    serial: true
+    plan:
       - get: organisations-publisher-git
+
+  - name: build-hmrc-manuals-api
+    serial: true
+    plan:
       - get: hmrc-manuals-api-git
+
+  - name: build-publisher
+    serial: true
+    plan:
       - get: publisher-git
+
+  - name: build-travel-advice-publisher
+    serial: true
+    plan:
       - get: travel-advice-publisher-git
+
+  - name: build-manuals-publisher
+    serial: true
+    plan:
       - get: manuals-publisher-git
+
+  - name: build-service-manual-publisher
+    serial: true
+    plan:
       - get: service-manual-publisher-git
+
+  - name: build-specialist-publisher
+    serial: true
+    plan:
       - get: specialist-publisher-git
+
+  - name: build-content-publisher
+    serial: true
+    plan:
       - get: content-publisher-git
