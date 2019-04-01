@@ -8,6 +8,10 @@ groups:
     jobs:
       - get-all-api-applications-git-repos
 
+  - name: access-restricted-external
+    jobs:
+      - get-all-access-restricted-external-git-repos
+
 resources:
   - name: router-git
     type: git
@@ -177,6 +181,120 @@ resources:
       uri: https://github.com/alphagov/link-checker.git
       branch: master
 
+  - name: signon-git
+    type: git
+    source:
+      uri: https://github.com/alphagov/signon.git
+      branch: master
+
+  - name: support-git
+    type: git
+    source:
+      uri: https://github.com/alphagov/support.git
+      branch: master
+
+  - name: contacts-admin-git
+    type: git
+    source:
+      uri: https://github.com/alphagov/contacts-admin.git
+      branch: master
+
+  - name: imminence-git
+    type: git
+    source:
+      uri: https://github.com/alphagov/imminence.git
+      branch: master
+
+  - name: local-links-manager-git
+    type: git
+    source:
+      uri: https://github.com/alphagov/local-links-manager.git
+      branch: master
+
+  - name: content-data-admin-git
+    type: git
+    source:
+      uri: https://github.com/alphagov/content-data-admin.git
+      branch: master
+
+  - name: search-admin-git
+    type: git
+    source:
+      uri: https://github.com/alphagov/search-admin.git
+      branch: master
+
+  - name: maslow-git
+    type: git
+    source:
+      uri: https://github.com/alphagov/maslow.git
+      branch: master
+
+  - name: collections-publisher-git
+    type: git
+    source:
+      uri: https://github.com/alphagov/collections-publisher.git
+      branch: master
+
+  - name: policy-publisher-git
+    type: git
+    source:
+      uri: https://github.com/alphagov/policy-publisher.git
+      branch: master
+
+  - name: content-tagger-git
+    type: git
+    source:
+      uri: https://github.com/alphagov/content-tagger.git
+      branch: master
+
+  - name: organisations-publisher-git
+    type: git
+    source:
+      uri: https://github.com/alphagov/organisations-publisher.git
+      branch: master
+
+  - name: hmrc-manuals-api-git
+    type: git
+    source:
+      uri: https://github.com/alphagov/hmrc-manuals-api.git
+      branch: master
+
+  - name: publisher-git
+    type: git
+    source:
+      uri: https://github.com/alphagov/publisher.git
+      branch: master
+
+  - name: travel-advice-publisher-git
+    type: git
+    source:
+      uri: https://github.com/alphagov/travel-advice-publisher.git
+      branch: master
+
+  - name: manuals-publisher-git
+    type: git
+    source:
+      uri: https://github.com/alphagov/manuals-publisher.git
+      branch: master
+
+  - name: service-manual-publisher-git
+    type: git
+    source:
+      uri: https://github.com/alphagov/service-manual-publisher.git
+      branch: master
+
+  - name: specialist-publisher-git
+    type: git
+    source:
+      uri: https://github.com/alphagov/specialist-publisher.git
+      branch: master
+
+  - name: content-publisher-git
+    type: git
+    source:
+      uri: https://github.com/alphagov/content-publisher.git
+      branch: master
+
 jobs:
   - name: get-all-public-frontend-git-repos
     serial: true
@@ -214,3 +332,27 @@ jobs:
       - get: publishing-api-git
       - get: asset-manager-git
       - get: link-checker-git
+
+  - name: get-all-access-restricted-external-git-repos
+    serial: true
+    plan:
+      - get: signon-git
+      - get: whitehall-git
+      - get: support-git
+      - get: contacts-admin-git
+      - get: imminence-git
+      - get: local-links-manager-git
+      - get: content-data-admin-git
+      - get: search-admin-git
+      - get: maslow-git
+      - get: collections-publisher-git
+      - get: policy-publisher-git
+      - get: content-tagger-git
+      - get: organisations-publisher-git
+      - get: hmrc-manuals-api-git
+      - get: publisher-git
+      - get: travel-advice-publisher-git
+      - get: manuals-publisher-git
+      - get: service-manual-publisher-git
+      - get: specialist-publisher-git
+      - get: content-publisher-git
