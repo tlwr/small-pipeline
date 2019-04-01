@@ -1,4 +1,5 @@
 ---
+# YAML anchors start here
 unimplemented-task: &unimplemented-task-config
   config:
     platform: linux
@@ -14,6 +15,7 @@ unimplemented-task: &unimplemented-task-config
       - |
         raise 'Unimplemented'
 
+# Concourse starts here
 groups:
   - name: public-frontends
     jobs:
@@ -369,7 +371,9 @@ resources:
 
 jobs:
   # SHARED
+
   - name: build-whitehall
+    build_logs_to_retain: 50
     serial: true
     plan:
       - get: whitehall-git
@@ -378,7 +382,9 @@ jobs:
         <<: *unimplemented-task-config
 
   # PUBLIC FRONTENDS
+
   - name: build-router
+    build_logs_to_retain: 50
     serial: true
     plan:
       - get: router-git
@@ -387,6 +393,7 @@ jobs:
         <<: *unimplemented-task-config
 
   - name: build-static
+    build_logs_to_retain: 50
     serial: true
     plan:
       - get: static-git
@@ -395,6 +402,7 @@ jobs:
         <<: *unimplemented-task-config
 
   - name: build-feedback
+    build_logs_to_retain: 50
     serial: true
     plan:
       - get: feedback-git
@@ -403,6 +411,7 @@ jobs:
         <<: *unimplemented-task-config
 
   - name: build-email-alert-frontend
+    build_logs_to_retain: 50
     serial: true
     plan:
       - get: email-alert-frontend-git
@@ -411,6 +420,7 @@ jobs:
         <<: *unimplemented-task-config
 
   - name: build-info-frontend
+    build_logs_to_retain: 50
     serial: true
     plan:
       - get: info-frontend-git
@@ -419,6 +429,7 @@ jobs:
         <<: *unimplemented-task-config
 
   - name: build-government-frontend
+    build_logs_to_retain: 50
     serial: true
     plan:
       - get: government-frontend-git
@@ -427,6 +438,7 @@ jobs:
         <<: *unimplemented-task-config
 
   - name: build-service-manual-frontend
+    build_logs_to_retain: 50
     serial: true
     plan:
       - get: service-manual-frontend-git
@@ -435,6 +447,7 @@ jobs:
         <<: *unimplemented-task-config
 
   - name: build-licence-finder
+    build_logs_to_retain: 50
     serial: true
     plan:
       - get: licence-finder-git
@@ -443,6 +456,7 @@ jobs:
         <<: *unimplemented-task-config
 
   - name: build-calendars
+    build_logs_to_retain: 50
     serial: true
     plan:
       - get: calendars-git
@@ -451,6 +465,7 @@ jobs:
         <<: *unimplemented-task-config
 
   - name: build-calculators
+    build_logs_to_retain: 50
     serial: true
     plan:
       - get: calculators-git
@@ -459,6 +474,7 @@ jobs:
         <<: *unimplemented-task-config
 
   - name: build-manuals-frontend
+    build_logs_to_retain: 50
     serial: true
     plan:
       - get: manuals-frontend-git
@@ -467,6 +483,7 @@ jobs:
         <<: *unimplemented-task-config
 
   - name: build-frontend
+    build_logs_to_retain: 50
     serial: true
     plan:
       - get: frontend-git
@@ -475,6 +492,7 @@ jobs:
         <<: *unimplemented-task-config
 
   - name: build-smart-answers
+    build_logs_to_retain: 50
     serial: true
     plan:
       - get: smart-answers-git
@@ -483,6 +501,7 @@ jobs:
         <<: *unimplemented-task-config
 
   - name: build-finder-frontend
+    build_logs_to_retain: 50
     serial: true
     plan:
       - get: finder-frontend-git
@@ -491,6 +510,7 @@ jobs:
         <<: *unimplemented-task-config
 
   - name: build-collections
+    build_logs_to_retain: 50
     serial: true
     plan:
       - get: collections-git
@@ -499,7 +519,9 @@ jobs:
         <<: *unimplemented-task-config
 
   # API APPLICATIONS
+
   - name: build-support-api
+    build_logs_to_retain: 50
     serial: true
     plan:
       - get: support-api-git
@@ -508,6 +530,7 @@ jobs:
         <<: *unimplemented-task-config
 
   - name: build-router-api
+    build_logs_to_retain: 50
     serial: true
     plan:
       - get: router-api-git
@@ -516,6 +539,7 @@ jobs:
         <<: *unimplemented-task-config
 
   - name: build-content-store
+    build_logs_to_retain: 50
     serial: true
     plan:
       - get: content-store-git
@@ -524,6 +548,7 @@ jobs:
         <<: *unimplemented-task-config
 
   - name: build-rummager
+    build_logs_to_retain: 50
     serial: true
     plan:
       - get: rummager-git
@@ -532,6 +557,7 @@ jobs:
         <<: *unimplemented-task-config
 
   - name: build-email-alert-service
+    build_logs_to_retain: 50
     serial: true
     plan:
       - get: email-alert-service-git
@@ -540,6 +566,7 @@ jobs:
         <<: *unimplemented-task-config
 
   - name: build-email-alert-api
+    build_logs_to_retain: 50
     serial: true
     plan:
       - get: email-alert-api-git
@@ -548,6 +575,7 @@ jobs:
         <<: *unimplemented-task-config
 
   - name: build-cache-clearing-service
+    build_logs_to_retain: 50
     serial: true
     plan:
       - get: cache-clearing-service-git
@@ -556,6 +584,7 @@ jobs:
         <<: *unimplemented-task-config
 
   - name: build-content-performance-manager
+    build_logs_to_retain: 50
     serial: true
     plan:
       - get: content-performance-manager-git
@@ -564,6 +593,7 @@ jobs:
         <<: *unimplemented-task-config
 
   - name: build-mapit
+    build_logs_to_retain: 50
     serial: true
     plan:
       - get: mapit-git
@@ -572,6 +602,7 @@ jobs:
         <<: *unimplemented-task-config
 
   - name: build-publishing-api
+    build_logs_to_retain: 50
     serial: true
     plan:
       - get: publishing-api-git
@@ -580,6 +611,7 @@ jobs:
         <<: *unimplemented-task-config
 
   - name: build-asset-manager
+    build_logs_to_retain: 50
     serial: true
     plan:
       - get: asset-manager-git
@@ -588,6 +620,7 @@ jobs:
         <<: *unimplemented-task-config
 
   - name: build-link-checker
+    build_logs_to_retain: 50
     serial: true
     plan:
       - get: link-checker-git
@@ -596,7 +629,9 @@ jobs:
         <<: *unimplemented-task-config
 
   # ACCESS RESTRICTED EXTERNAL
+
   - name: build-signon
+    build_logs_to_retain: 50
     serial: true
     plan:
       - get: signon-git
@@ -605,6 +640,7 @@ jobs:
         <<: *unimplemented-task-config
 
   - name: build-support
+    build_logs_to_retain: 50
     serial: true
     plan:
       - get: support-git
@@ -613,6 +649,7 @@ jobs:
         <<: *unimplemented-task-config
 
   - name: build-contacts-admin
+    build_logs_to_retain: 50
     serial: true
     plan:
       - get: contacts-admin-git
@@ -621,6 +658,7 @@ jobs:
         <<: *unimplemented-task-config
 
   - name: build-imminence
+    build_logs_to_retain: 50
     serial: true
     plan:
       - get: imminence-git
@@ -629,6 +667,7 @@ jobs:
         <<: *unimplemented-task-config
 
   - name: build-local-links-manager
+    build_logs_to_retain: 50
     serial: true
     plan:
       - get: local-links-manager-git
@@ -637,6 +676,7 @@ jobs:
         <<: *unimplemented-task-config
 
   - name: build-content-data-admin
+    build_logs_to_retain: 50
     serial: true
     plan:
       - get: content-data-admin-git
@@ -645,6 +685,7 @@ jobs:
         <<: *unimplemented-task-config
 
   - name: build-search-admin
+    build_logs_to_retain: 50
     serial: true
     plan:
       - get: search-admin-git
@@ -653,6 +694,7 @@ jobs:
         <<: *unimplemented-task-config
 
   - name: build-maslow
+    build_logs_to_retain: 50
     serial: true
     plan:
       - get: maslow-git
@@ -661,6 +703,7 @@ jobs:
         <<: *unimplemented-task-config
 
   - name: build-collections-publisher
+    build_logs_to_retain: 50
     serial: true
     plan:
       - get: collections-publisher-git
@@ -669,6 +712,7 @@ jobs:
         <<: *unimplemented-task-config
 
   - name: build-policy-publisher
+    build_logs_to_retain: 50
     serial: true
     plan:
       - get: policy-publisher-git
@@ -677,6 +721,7 @@ jobs:
         <<: *unimplemented-task-config
 
   - name: build-content-tagger
+    build_logs_to_retain: 50
     serial: true
     plan:
       - get: content-tagger-git
@@ -685,6 +730,7 @@ jobs:
         <<: *unimplemented-task-config
 
   - name: build-organisations-publisher
+    build_logs_to_retain: 50
     serial: true
     plan:
       - get: organisations-publisher-git
@@ -693,6 +739,7 @@ jobs:
         <<: *unimplemented-task-config
 
   - name: build-hmrc-manuals-api
+    build_logs_to_retain: 50
     serial: true
     plan:
       - get: hmrc-manuals-api-git
@@ -701,6 +748,7 @@ jobs:
         <<: *unimplemented-task-config
 
   - name: build-publisher
+    build_logs_to_retain: 50
     serial: true
     plan:
       - get: publisher-git
@@ -709,6 +757,7 @@ jobs:
         <<: *unimplemented-task-config
 
   - name: build-travel-advice-publisher
+    build_logs_to_retain: 50
     serial: true
     plan:
       - get: travel-advice-publisher-git
@@ -717,6 +766,7 @@ jobs:
         <<: *unimplemented-task-config
 
   - name: build-manuals-publisher
+    build_logs_to_retain: 50
     serial: true
     plan:
       - get: manuals-publisher-git
@@ -725,6 +775,7 @@ jobs:
         <<: *unimplemented-task-config
 
   - name: build-service-manual-publisher
+    build_logs_to_retain: 50
     serial: true
     plan:
       - get: service-manual-publisher-git
@@ -733,6 +784,7 @@ jobs:
         <<: *unimplemented-task-config
 
   - name: build-specialist-publisher
+    build_logs_to_retain: 50
     serial: true
     plan:
       - get: specialist-publisher-git
@@ -741,6 +793,7 @@ jobs:
         <<: *unimplemented-task-config
 
   - name: build-content-publisher
+    build_logs_to_retain: 50
     serial: true
     plan:
       - get: content-publisher-git
@@ -748,7 +801,10 @@ jobs:
       - task: tests
         <<: *unimplemented-task-config
 
+  # PIPELINE TOOLS
+
   - name: build-test-harness-image
+    build_logs_to_retain: 50
     serial: true
     plan:
       - get: test-harness-git
