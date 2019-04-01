@@ -1,0 +1,123 @@
+---
+groups:
+  - name: public-frontends
+    jobs:
+      - get-all-public-frontend-git-repos
+
+resources:
+  - name: router-git
+    type: git
+    source:
+      uri: https://github.com/alphagov/router.git
+      branch: master
+
+  - name: static-git
+    type: git
+    source:
+      uri: https://github.com/alphagov/static.git
+      branch: master
+
+  - name: whitehall-git
+    type: git
+    source:
+      uri: https://github.com/alphagov/whitehall.git
+      branch: master
+
+  - name: feedback-git
+    type: git
+    source:
+      uri: https://github.com/alphagov/feedback.git
+      branch: master
+
+  - name: email-alert-frontend-git
+    type: git
+    source:
+      uri: https://github.com/alphagov/email-alert-frontend.git
+      branch: master
+
+  - name: info-frontend-git
+    type: git
+    source:
+      uri: https://github.com/alphagov/info-frontend.git
+      branch: master
+
+  - name: government-frontend-git
+    type: git
+    source:
+      uri: https://github.com/alphagov/government-frontend.git
+      branch: master
+
+  - name: service-manual-frontend-git
+    type: git
+    source:
+      uri: https://github.com/alphagov/service-manual-frontend.git
+      branch: master
+
+  - name: licence-finder-git
+    type: git
+    source:
+      uri: https://github.com/alphagov/licence-finder.git
+      branch: master
+
+  - name: calendars-git
+    type: git
+    source:
+      uri: https://github.com/alphagov/calendars.git
+      branch: master
+
+  - name: calculators-git
+    type: git
+    source:
+      uri: https://github.com/alphagov/calculators.git
+      branch: master
+
+  - name: manuals-frontend-git
+    type: git
+    source:
+      uri: https://github.com/alphagov/manuals-frontend.git
+      branch: master
+
+  - name: frontend-git
+    type: git
+    source:
+      uri: https://github.com/alphagov/frontend.git
+      branch: master
+
+  - name: smart-answers-git
+    type: git
+    source:
+      uri: https://github.com/alphagov/smart-answers.git
+      branch: master
+
+  - name: finder-frontend-git
+    type: git
+    source:
+      uri: https://github.com/alphagov/finder-frontend.git
+      branch: master
+
+  - name: collections-git
+    type: git
+    source:
+      uri: https://github.com/alphagov/collections.git
+      branch: master
+
+jobs:
+  - name: get-all-public-frontend-git-repos
+    serial: true
+    plan:
+      - get: router-git
+      - get: static-git
+      - get: whitehall-git
+      - get: feedback-git
+      - get: email-alert-frontend-git
+      - get: info-frontend-git
+      - get: government-frontend-git
+      - get: service-manual-frontend-git
+      - get: licence-finder-git
+      - get: calendars-git
+      - get: calculators-git
+      - get: manuals-frontend-git
+      - get: frontend-git
+      - get: smart-answers-git
+      - get: finder-frontend-git
+      - get: collections-git
