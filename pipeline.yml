@@ -88,6 +88,12 @@ resources:
       paths:
         - test-harness
 
+  - name: test-harness-image
+    type: docker-image
+    source:
+      repository: ((readonly_private_ecr_repo_url))
+      tag: test-harness-latest
+
   - name: router-git
     type: git
     source:
@@ -810,3 +816,6 @@ jobs:
     plan:
       - get: test-harness-git
         trigger: true
+      - put: test-harness-image
+        params:
+          build: test-harness-git/test-harness
