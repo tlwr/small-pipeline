@@ -228,7 +228,7 @@ end
 
 def podman_build(directory, dockerfile)
   STDERR.puts 'Building image (name: harness-test)'
-  build_command = "#{podman_prelude} build --tag harness-test --file '#{dockerfile}' --userns host -ts host '#{directory}'"
+  build_command = "#{podman_prelude} build --tag harness-test --file '#{dockerfile}' --userns host -ts host --cap-add sys_admin '#{directory}'"
 
   Process.wait(spawn(
     build_command,
