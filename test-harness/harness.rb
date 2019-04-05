@@ -46,7 +46,6 @@ HarnessOptions = Struct.new(
 
   def set_option_defaults
     self.cleanup ||= true
-    self.dockerfile ||= "#{self.directory}/Dockerfile"
   end
 
   def set_rabbitmq_defaults
@@ -112,7 +111,7 @@ OptionParser.new do |p|
   p.on(
     '--dockerfile PATH',
     'Path to Dockerfile, this is ALWAYS relative; defaults to $DIR/Dockerfile',
-  ) { |v| options.directory = v }
+  ) { |v| options.dockerfile = v }
 
   p.on(
     '--rabbitmq',
@@ -214,15 +213,22 @@ unless File.exist? directory
   exit 1
 end
 
+dockerfile = options.dockerfile || File.join(directory, 'Dockerfile')
+
+unless File.exist? dockerfile
+  STDERR.puts "Computed Dockerfile value #{dockerfile} does not exsit"
+  exit 1
+end
+
 STDERR.pp options
 
 def podman_prelude
   'podman --root /podman --storage-driver vfs --cgroup-manager cgroupfs'
 end
 
-def podman_build(directory)
+def podman_build(directory, dockerfile)
   STDERR.puts 'Building image (name: harness-test)'
-  build_command = "#{podman_prelude} build --tag harness-test #{directory}"
+  build_command = "#{podman_prelude} build --tag harness-test --file '#{dockerfile}' --userns host -ts host '#{directory}'"
 
   Process.wait(spawn(
     build_command,
@@ -367,7 +373,7 @@ def configure_rabbitmq(pod_id, config)
   STDERR.puts "#{pod_id} | Configured rabbitmq container"
 end
 
-podman_build(directory)
+podman_build(directory, dockerfile)
 
 pod_id = podman_setup
 
