@@ -127,19 +127,19 @@ OptionParser.new do |p|
     'Password for RabbitMQ, default "harness"',
   ) { |v| options.rabbitmq_password = v }
   p.on(
-    '--rabbitmq-direct-exchanges ex1,ex2,ex3',
+    '--rabbitmq-direct-exchanges ex1,ex2,ex3', Array,
     'Direct exchanges for RabbitMQ, comma separated, default "direct1"',
   ) { |v| options.rabbitmq_direct_exchanges = v }
   p.on(
-    '--rabbitmq-fanout-exchanges ex1,ex2,ex3',
+    '--rabbitmq-fanout-exchanges ex1,ex2,ex3', Array,
     'Fanout exchanges for RabbitMQ, comma separated, default "fanout1"',
   ) { |v| options.rabbitmq_fanout_exchanges = v }
   p.on(
-    '--rabbitmq-topic-exchanges ex1,ex2,ex3',
+    '--rabbitmq-topic-exchanges ex1,ex2,ex3', Array,
     'Topic exchanges for RabbitMQ, comma separated, default "topic1"',
   ) { |v| options.rabbitmq_topic_exchanges = v }
   p.on(
-    '--rabbitmq-headers-exchanges ex1,ex2,ex3',
+    '--rabbitmq-headers-exchanges ex1,ex2,ex3', Array,
     'Headers exchanges for RabbitMQ, comma separated, default "headers1"',
   ) { |v| options.rabbitmq_headers_exchanges = v }
 
@@ -156,7 +156,7 @@ OptionParser.new do |p|
     'Password for Postgres, default "harness"',
   ) { |v| options.postgres_password = v }
   p.on(
-    '--postgres-databases db1,db2,db3',
+    '--postgres-databases db1,db2,db3', Array,
     'Databases for Postgres, comma separated, default "db1"',
   ) { |v| options.postgres_databases = v }
 
@@ -173,7 +173,7 @@ OptionParser.new do |p|
     'Password for MySQL, default "harness"',
   ) { |v| options.mysql_password = v }
   p.on(
-    '--mysql-databases db1,db2,db3',
+    '--mysql-databases db1,db2,db3', Array,
     'Databases for MySQL, comma separated, default "db1"',
   ) { |v| options.mysql_databases = v }
 
@@ -192,7 +192,7 @@ OptionParser.new do |p|
     'Password for Elasticsearch, default "harness"',
   ) { |v| options.elasticsearch_password = v }
   p.on(
-    '--elasticsearch-indices ind1,ind2,ind3',
+    '--elasticsearch-indices ind1,ind2,ind3', Array,
     'Indices for Elasticsearch, comma separated, default "index1"',
   ) { |v| options.elasticsearch_indices = v }
 
