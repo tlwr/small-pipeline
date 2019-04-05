@@ -10,6 +10,9 @@ require 'optparse'
 HarnessOptions = Struct.new(
   :cleanup,
 
+  :directory,
+  :dockerfile,
+
   :rabbitmq,
   :rabbitmq_username, :rabbitmq_password,
   :rabbitmq_direct_exchanges, :rabbitmq_fanout_exchanges,
@@ -43,6 +46,7 @@ HarnessOptions = Struct.new(
 
   def set_option_defaults
     self.cleanup ||= true
+    self.dockerfile ||= "#{self.directory}/Dockerfile"
   end
 
   def set_rabbitmq_defaults
@@ -99,6 +103,16 @@ OptionParser.new do |p|
     '--[no-]cleanup',
     'Cleanup after finishing',
   ) { |v| options.cleanup = v }
+
+  p.on(
+    '--directory DIR',
+    'Directory to build, this is ALWAYS relative',
+  ) { |v| options.directory = v }
+
+  p.on(
+    '--dockerfile PATH',
+    'Path to Dockerfile, this is ALWAYS relative; defaults to $DIR/Dockerfile',
+  ) { |v| options.directory = v }
 
   p.on(
     '--rabbitmq',
@@ -188,10 +202,39 @@ OptionParser.new do |p|
   end
 end.parse!
 
-STDERR.puts options
+if options.directory.nil?
+  STDERR.puts 'Flag --directory is required'
+  exit 1
+end
+
+directory = File.join(Dir.pwd, options.directory)
+
+unless File.exist? directory
+  STDERR.puts "Computed directory value #{directory} does not exsit"
+  exit 1
+end
+
+STDERR.pp options
 
 def podman_prelude
   'podman --root /podman --storage-driver vfs --cgroup-manager cgroupfs'
+end
+
+def podman_build(directory)
+  STDERR.puts 'Building image (name: harness-test)'
+  build_command = "#{podman_prelude} build --tag harness-test #{directory}"
+
+  Process.wait(spawn(
+    build_command,
+    in: STDIN, out: STDOUT, err: STDERR,
+  ))
+
+  unless $CHILD_STATUS.success?
+    STDERR.puts 'Failed to build image'
+    exit $CHILD_STATUS.exitstatus
+  end
+
+  STDERR.puts 'Built image (name: harness-test)'
 end
 
 def podman_setup
@@ -323,6 +366,8 @@ def configure_rabbitmq(pod_id, config)
 
   STDERR.puts "#{pod_id} | Configured rabbitmq container"
 end
+
+podman_build(directory)
 
 pod_id = podman_setup
 
