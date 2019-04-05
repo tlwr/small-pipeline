@@ -119,63 +119,63 @@ OptionParser.new do |p|
     'Enable RabbitMQ',
   ) { options.rabbitmq = true }
   p.on(
-    '--rabbitmq-username',
+    '--rabbitmq-username USERNAME',
     'Username for RabbitMQ, default "harness"',
   ) { |v| options.rabbitmq_username = v }
   p.on(
-    '--rabbitmq-password',
+    '--rabbitmq-password PASSWORD',
     'Password for RabbitMQ, default "harness"',
   ) { |v| options.rabbitmq_password = v }
   p.on(
-    '--rabbitmq-direct-exchanges',
+    '--rabbitmq-direct-exchanges ex1,ex2,ex3',
     'Direct exchanges for RabbitMQ, comma separated, default "direct1"',
-  ) { |v| options.rabbitmq_direct_exchanges = v.split(',') }
+  ) { |v| options.rabbitmq_direct_exchanges = v }
   p.on(
-    '--rabbitmq-fanout-exchanges',
+    '--rabbitmq-fanout-exchanges ex1,ex2,ex3',
     'Fanout exchanges for RabbitMQ, comma separated, default "fanout1"',
-  ) { |v| options.rabbitmq_fanout_exchanges = v.split(',') }
+  ) { |v| options.rabbitmq_fanout_exchanges = v }
   p.on(
-    '--rabbitmq-topic-exchanges',
+    '--rabbitmq-topic-exchanges ex1,ex2,ex3',
     'Topic exchanges for RabbitMQ, comma separated, default "topic1"',
-  ) { |v| options.rabbitmq_topic_exchanges = v.split(',') }
+  ) { |v| options.rabbitmq_topic_exchanges = v }
   p.on(
-    '--rabbitmq-headers-exchanges',
+    '--rabbitmq-headers-exchanges ex1,ex2,ex3',
     'Headers exchanges for RabbitMQ, comma separated, default "headers1"',
-  ) { |v| options.rabbitmq_headers_exchanges = v.split(',') }
+  ) { |v| options.rabbitmq_headers_exchanges = v }
 
   p.on(
     '--postgres',
     'Enable Postgres',
   ) { options.postgres = true }
   p.on(
-    '--postgres-username',
+    '--postgres-username USERNAME',
     'Username for Postgres, default "harness"',
   ) { |v| options.postgres_username = v }
   p.on(
-    '--postgres-password',
+    '--postgres-password PASSWORD',
     'Password for Postgres, default "harness"',
   ) { |v| options.postgres_password = v }
   p.on(
-    '--postgres-databases',
+    '--postgres-databases db1,db2,db3',
     'Databases for Postgres, comma separated, default "db1"',
-  ) { |v| options.postgres_databases = v.split(',') }
+  ) { |v| options.postgres_databases = v }
 
   p.on(
     '--mysql',
     'Enable MySQL',
   ) { options.mysql = true }
   p.on(
-    '--mysql-username',
+    '--mysql-username USERNAME',
     'Username for MySQL, default "harness"',
   ) { |v| options.mysql_username = v }
   p.on(
-    '--mysql-password',
+    '--mysql-password PASSWORD',
     'Password for MySQL, default "harness"',
   ) { |v| options.mysql_password = v }
   p.on(
-    '--mysql-databases',
+    '--mysql-databases db1,db2,db3',
     'Databases for MySQL, comma separated, default "db1"',
-  ) { |v| options.mysql_databases = v.split(',') }
+  ) { |v| options.mysql_databases = v }
 
   p.on('--redis', 'Enable redis') { options.redis = true }
 
@@ -184,17 +184,17 @@ OptionParser.new do |p|
     'Enable Elasticsearch',
   ) { options.elasticsearch = true }
   p.on(
-    '--elasticsearch-username',
+    '--elasticsearch-username USERNAME',
     'Username for Elasticsearch, default "harness"',
   ) { |v| options.elasticsearch_username = v }
   p.on(
-    '--elasticsearch-password',
+    '--elasticsearch-password PASSWORD',
     'Password for Elasticsearch, default "harness"',
   ) { |v| options.elasticsearch_password = v }
   p.on(
-    '--elasticsearch-indices',
+    '--elasticsearch-indices ind1,ind2,ind3',
     'Indices for Elasticsearch, comma separated, default "index1"',
-  ) { |v| options.elasticsearch_indices = v.split(',') }
+  ) { |v| options.elasticsearch_indices = v }
 
   p.on('-h', '--help', 'Show help') do
     puts p.help
