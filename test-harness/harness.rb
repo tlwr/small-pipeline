@@ -226,9 +226,13 @@ def podman_prelude
   'podman --root /podman --storage-driver vfs --cgroup-manager cgroupfs'
 end
 
-def podman_build(directory, dockerfile)
+def buildah_prelude
+  'buildah --root /podman --storage-driver vfs build-using-dockerfile'
+end
+
+def buildah_build(directory, dockerfile)
   STDERR.puts 'Building image (name: harness-test)'
-  build_command = "#{podman_prelude} build --tag harness-test --file '#{dockerfile}' --userns host -ts host --cap-add sys_admin '#{directory}'"
+  build_command = "#{buildah_prelude} --file '#{dockerfile}' --cap-add sys_admin --tag harness-test '#{directory}'"
 
   Process.wait(spawn(
     build_command,
@@ -373,7 +377,7 @@ def configure_rabbitmq(pod_id, config)
   STDERR.puts "#{pod_id} | Configured rabbitmq container"
 end
 
-podman_build(directory, dockerfile)
+buildah_build(directory, dockerfile)
 
 pod_id = podman_setup
 
