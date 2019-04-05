@@ -1,7 +1,9 @@
 #!/usr/bin/env ruby
 
+require 'base64'
 require 'English'
 require 'fileutils'
+require 'json'
 require 'open3'
 require 'optparse'
 
@@ -76,6 +78,17 @@ HarnessOptions = Struct.new(
     self.elasticsearch_username ||= 'harness'
     self.elasticsearch_password ||= 'harness'
     self.elasticsearch_indices  ||= ['index1']
+  end
+
+  def services?
+    [
+      self.rabbitmq, self.postgres, self.mysql, self.redis, self.elasticsearch,
+    ].any?
+  end
+
+  def config(service)
+    service_members = self.members.grep(/^#{service}/)
+    self.to_h.select { |f, v| service_members.include? f }
   end
 end
 
@@ -175,7 +188,7 @@ OptionParser.new do |p|
   end
 end.parse!
 
-puts options
+STDERR.puts options
 
 def podman_prelude
   'podman --root /podman --storage-driver vfs --cgroup-manager cgroupfs'
@@ -265,6 +278,52 @@ def enable_elasticsearch(pod_id, elasticsearch_version)
   enable_harness_service(pod_id, 'elasticsearch', elasticsearch_version, 3306)
 end
 
+def configure_rabbitmq(pod_id, config)
+  STDERR.puts "#{pod_id} | Configuring rabbitmq with #{config}"
+
+  username = config[:rabbitmq_username]
+  password = config[:rabbitmq_password]
+
+  commands = [
+    'sleep 15',
+    "rabbitmqctl add_user '#{username}' '#{password}'",
+    "rabbitmqctl set_permissions -p '/' '#{username}' '.*' '.*' '.*'",
+  ].concat(
+    config[:rabbitmq_direct_exchanges].map do |exchange|
+      "rabbitmqadmin declare exchange name='#{exchange}' type=direct"
+    end
+  ).concat(
+    config[:rabbitmq_fanout_exchanges].map do |exchange|
+      "rabbitmqadmin declare exchange name='#{exchange}' type=fanout"
+    end
+  ).concat(
+    config[:rabbitmq_topic_exchanges].map do |exchange|
+      "rabbitmqadmin declare exchange name='#{exchange}' type=topic"
+    end
+  ).concat(
+    config[:rabbitmq_headers_exchanges].map do |exchange|
+      "rabbitmqadmin declare exchange name='#{exchange}' type=headers"
+    end
+  )
+
+  commands.each do |command|
+    exec_command = "#{podman_prelude} exec -it rabbitmq #{command}"
+    STDERR.puts exec_command
+
+    Process.wait(spawn(
+      exec_command,
+      in: STDIN, out: STDOUT, err: STDERR,
+    ))
+
+    unless $CHILD_STATUS.success?
+      STDERR.puts "#{pod_id} | Failed to configure rabbitmq"
+      exit $CHILD_STATUS.exitstatus
+    end
+  end
+
+  STDERR.puts "#{pod_id} | Configured rabbitmq container"
+end
+
 pod_id = podman_setup
 
 if options.cleanup
@@ -292,12 +351,23 @@ if options.cleanup
   end
 end
 
-puts "Pod => #{pod_id}"
+STDERR.puts "Pod => #{pod_id}"
 
-enable_rabbitmq(pod_id, '3.7') if options.rabbitmq
+enable_rabbitmq(pod_id, '3.7-management') if options.rabbitmq
 enable_postgres(pod_id, '9.6') if options.postgres
 enable_mysql(pod_id, '8') if options.mysql
 enable_redis(pod_id, '5.0.4') if options.redis
 enable_elasticsearch(pod_id, '6.7.0') if options.elasticsearch
 
+start_service(pod_id, 'rabbitmq') if options.rabbitmq
+start_service(pod_id, 'postgres') if options.postgres
+start_service(pod_id, 'mysql') if options.mysql
 start_service(pod_id, 'redis') if options.redis
+start_service(pod_id, 'elasticsearch') if options.elasticsearch
+
+if options.services?
+  STDERR.puts 'Waiting 10s for services to be started'
+  sleep 10
+end
+
+configure_rabbitmq(pod_id, options.config('rabbitmq')) if options.rabbitmq
