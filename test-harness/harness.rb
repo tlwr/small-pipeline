@@ -227,7 +227,7 @@ def podman_prelude
 end
 
 def buildah_prelude
-  'buildah --root /podman --storage-driver vfs build-using-dockerfile'
+  'buildah --root /buildah/root --runroot /buildah/run --storage-driver vfs build-using-dockerfile'
 end
 
 def buildah_build(directory, dockerfile)
@@ -245,6 +245,11 @@ def buildah_build(directory, dockerfile)
   end
 
   STDERR.puts 'Built image (name: harness-test)'
+end
+
+def buildah_setup
+  FileUtils.mkdir_p '/buildah/root'
+  FileUtils.mkdir_p '/buildah/run'
 end
 
 def podman_setup
@@ -377,6 +382,7 @@ def configure_rabbitmq(pod_id, config)
   STDERR.puts "#{pod_id} | Configured rabbitmq container"
 end
 
+buildah_setup
 buildah_build(directory, dockerfile)
 
 pod_id = podman_setup
