@@ -223,7 +223,7 @@ end
 STDERR.pp options
 
 def podman_prelude
-  'podman --root /podman --storage-driver vfs --cgroup-manager cgroupfs'
+  'podman --root /podman --storage-driver vfs'
 end
 
 def buildah_prelude
