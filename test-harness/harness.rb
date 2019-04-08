@@ -232,7 +232,7 @@ end
 
 def buildah_build(directory, dockerfile)
   STDERR.puts 'Building image (name: harness-test)'
-  build_command = "#{buildah_prelude} --file '#{dockerfile}' --cap-add sys_admin --tag harness-test '#{directory}'"
+  build_command = "#{buildah_prelude} --isolation chroot --file '#{dockerfile}' --cap-add sys_admin --tag harness-test '#{directory}'"
 
   Process.wait(spawn(
     build_command,
